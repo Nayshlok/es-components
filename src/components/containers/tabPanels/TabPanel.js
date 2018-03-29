@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
+import viaTheme from '../../theme/viaTheme';
 import TabList from './TabList';
 import Tab from './Tab';
 
@@ -24,12 +25,29 @@ const TabFormatter = styled('div')`
   }
 `;
 
+const TabContent = styled('div')`
+  border-top: 1px solid #ddd;
+
+  .animated {
+    animation: fadein 1s;
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+`;
+
 class TabPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      currentContent: ''
+      currentContent: '',
+      animationToggle: true
     };
     this.tabChanged = this.tabChanged.bind(this);
   }
@@ -38,8 +56,38 @@ class TabPanel extends React.Component {
     if (this.state.value === '') {
       const child = this.props.children[0];
       const selectedChild = this.getFirstValueChild(child);
-      this.tabChanged(selectedChild.props.name, selectedChild);
+      this.tabChanged(selectedChild.props.name, selectedChild.props.children);
     }
+  }
+
+  componentDidUpdate() {
+    if (this.content) {
+      if (this.content.classList.contains('animated')) {
+        clearTimeout(this.innerTimeout);
+        clearTimeout(this.addTimeout);
+        this.content.classList.remove('animated');
+        this.addTimeout = setTimeout(
+          x => {
+            x.content.classList.add('animated');
+          },
+          5,
+          this
+        );
+      } else {
+        this.content.classList.add('animated');
+      }
+      this.innerTimeout = this.setClassRemoveTimeout(this);
+    }
+  }
+
+  setClassRemoveTimeout(context) {
+    return setTimeout(
+      x => {
+        x.content.classList.remove('animated');
+      },
+      1000,
+      context
+    );
   }
 
   getFirstValueChild(child) {
@@ -68,7 +116,12 @@ class TabPanel extends React.Component {
   }
 
   tabChanged(name, child) {
-    this.setState({ value: name, currentContent: child });
+    if (this.state.value !== name) {
+      const animatedChild = React.cloneElement(child, {
+        ref: element => (this.content = element)
+      });
+      this.setState({ value: name, currentContent: animatedChild });
+    }
   }
 
   render() {
@@ -82,7 +135,8 @@ class TabPanel extends React.Component {
         key: child.props.name,
         selected: isSelected,
         action: this.tabChanged,
-        selectedName: this.state.value
+        selectedName: this.state.value,
+        theme
       });
     });
 
@@ -92,7 +146,7 @@ class TabPanel extends React.Component {
           <TabWrapper>
             <TabFormatter>{elements}</TabFormatter>
           </TabWrapper>
-          <div>{this.state.currentContent}</div>
+          <TabContent>{this.state.currentContent}</TabContent>
         </div>
       </ThemeProvider>
     );
@@ -105,7 +159,7 @@ TabPanel.propTypes = {
 };
 
 TabPanel.defaultProps = {
-  theme: {}
+  theme: viaTheme
 };
 
 TabPanel.TabList = TabList;

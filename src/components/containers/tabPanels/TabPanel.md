@@ -2,7 +2,7 @@ Test Tab Panels
 
 ```
 <div>
-<TabPanel theme={{colors:{white: '#000'}}}>
+<TabPanel>
   <TabPanel.Tab name="test1">
     <p>
       HELLO WORLD!!!!
@@ -15,9 +15,18 @@ Test Tab Panels
       </p>
     </div>
   </TabPanel.Tab>
+    <TabPanel.Tab name="test5">
+    <div>
+      <p>
+        Divs are not fun
+      </p>
+    </div>
+  </TabPanel.Tab>
   <TabPanel.TabList name="testList">
     <span optionText="test3">
+      <div>
        No elements
+      </div>
     </span>
     <span optionText="test4">
       <p>

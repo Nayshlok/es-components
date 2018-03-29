@@ -10,10 +10,10 @@ const TabButton = styled.button`
     props.selected ? `1px solid ${props.theme.colors.gray}` : '0px'};
   border-bottom: ${props => (props.selected ? '0px' : '1px')};
   color: ${props =>
-    props.selected ? props.theme.colors.black : props.theme.colors.linkColor};
+    props.selected ? props.theme.colors.black : props.theme.colors.primary};
   display: inline-block;
   font-size: 18px;
-  margin-right: ${props => (props.selected ? '2px' : '0px')};
+  margin: ${props => (props.selected ? '0px 0px -1px 2px' : '0px')};
   padding: 10px 15px;
   width: auto;
   flex-grow: 1;
