@@ -97,11 +97,11 @@ function childrenRule(props, propName, component) {
 
 TabPanel.propTypes = {
   /**
-   * Theme to be applied to the tab panel. Can be used to style the Tab and Tab List
+   * Theme to be applied to the tab panel. Can be used to style the Tab
    */
   theme: PropTypes.object,
   /**
-   * Makes sure immediate children are Tab or Tab List, as we cannot render anything else in the tab heading.
+   * Makes sure immediate children are Tab, as we cannot render anything else in the tab heading.
    */
   children: childrenRule
 };

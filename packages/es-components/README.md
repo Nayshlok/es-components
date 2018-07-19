@@ -65,6 +65,13 @@ Submit a pull request when you're ready to have your code reviewed and apply the
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information on standards.
 
+##Version Update
+
+Run 
+```
+npm run version_only
+```
+At the root of the project
 ## Tools
 
 Components are built using [React](https://facebook.github.io/react/) and [styled-components](https://styled-components.com/). Tests are written using
