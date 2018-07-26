@@ -9,7 +9,12 @@ const styles = {
     <Popover
         name="topEx"
         title="Top"
-        content="This is the popover's content. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch."
+        content={`"Insurance plans determine drug costs using a formulary and a tier structure.
+            A formulary is a list of drugs the plan covers. To be a preferred drug a
+            drug must be part of a plan’s formulary. A tier structure determines what 
+            you pay after your deductible is met, either with a copay or coinsurance. 
+            A copay is a set amount you pay for a drug once your deductible is met. 
+            Coinsurance is a percentage of the drug price you pay after your deductible is met."`}
         placement="top"
     >
         Popover on Top

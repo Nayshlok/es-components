@@ -73,6 +73,15 @@ const PopoverContent = styled.div`
   text-align: left;
 `;
 
+const AriaAnnouncer = styled.p`
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+`;
+
 const AlternateCloseButton = styled(Button)`
   background: transparent;
   border: none;
@@ -240,7 +249,6 @@ class Popover extends React.Component {
           >
             <PopoverContainer
               className="es-popover__container"
-              role="dialog"
               innerRef={elem => {
                 this.contentRef = elem;
               }}
@@ -253,7 +261,7 @@ class Popover extends React.Component {
                   innerRef={elem => {
                     this.headerRef = elem;
                   }}
-                  aria-label="Press escape to close the Popover"
+                  aria-labelledby={title}
                 />
               </PopoverHeader>
 
@@ -264,7 +272,11 @@ class Popover extends React.Component {
                 <PopoverContent
                   className="es-popover__content"
                   showCloseButton={showCloseButton}
+                  id={title}
                 >
+                  <AriaAnnouncer>
+                    Press escape to close the Popover
+                  </AriaAnnouncer>
                   {content}
                 </PopoverContent>
                 {showCloseButton && closeButton}
